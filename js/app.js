@@ -56,8 +56,6 @@ console.log(event,numOfAttempt);
 clickingCounter=numOfAttempt;
 }
 //-------------------------------------------
-//-----------------------------------*/
-
  var leftIndex;
  var rightIndex;
  var midIndex;
