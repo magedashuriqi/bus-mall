@@ -1,37 +1,110 @@
-BusMall.prototype.images=[];
- var bag= new BusMall('Bag','img/bag.jpg');
- var banana= new BusMall('Banana','img/banana.jpg');
- var bathroom=new BusMall('bathroom','img/bathroom.jpg');
- var boots= new BusMall('boots','img/boots.jpg');
- var breakfast=new BusMall('breakfast','img/breakfast.jpg');
- var bubblegum= new BusMall('bubblegum','img/bubblegum.jpg');
- var chair=new BusMall('chair','img/chair.jpg');
- var cthulhu= new BusMall('cthulhu','img/cthulhu.jpg');
- var dogDuck=new BusMall('dog-duck','img/dog-duck.jpg');
- var dragon=new BusMall('dragon','img/dragon.jpg');
- var pen=new BusMall('pen','img/pen.jpg');
- var petSweep= new BusMall('pet-sweep','img/pet-sweep.jpg');
- var scissors=new BusMall('scissors','img/scissors.jpg');
- var shark= new BusMall('shark','img/shark.jpg');
- var sweep=new BusMall('sweep','img/sweep.png');
- var tauntaun=new BusMall('tauntaun','img/tauntaun.jpg');
- var unicorn=new BusMall('unicorn','img/unicorn.jpg');
- var usb=new BusMall('usb','img/usb.gif');
- var waterCan=new BusMall('water-can','img/water-can.jpg');
- var winGlass=new BusMall('wine-glass','img/win-glass.jpg');
-renderImages();
+
+
+var maxAttempts =25;
+//----------------------------------
+
+
+selectImages();
 console.log(BusMall.prototype.images);
+//-------------------------------------
+
+// generate random number
+function randomIndex(){
+    return Math.floor(Math.random()*(BusMall.prototype.images.length));
+    
+}
+//--------------------------------
+function selectImages (){
+    leftIndex=randomIndex();
+    do{
+    rightIndex=randomIndex();
+    midIndex=randomIndex();}
+    while (leftIndex===rightIndex || leftIndex===midIndex || rightIndex===midIndex) ;
+        leftImage.src=BusMall.prototype.images[leftIndex].imgpath;  
+        BusMall.prototype.images[leftIndex].timesShown++;
+        rightImage.src= BusMall.prototype.images[rightIndex].imgPath;
+        BusMall.prototype.images[rightIndex].timesShown++;
+        midImage.src=BusMall.prototype.images[midIndex].imgPath; 
+        BusMall.prototype.images[midIndex].timesShown++;
+    
+}
+//---------------------------------
+
+// to use the submit button to save the number of user attempts  
+var submitButon = getElementById('submitButton');
+submitButon.addEventListener('submit',submitter)
+
+function submitter(event){
+event.preventDefault();
+
+var numOfAttempt=event.target.attempt.value;
+console.log(event,numOfAttempt);
+maxAttempts=numOfAttempt;
+}
+//-------------------------------------------
+ var leftIndex=document.getElementById('left-img');
+ var rightIndex=document.getElementById('right-img');
+ var midIndex=document.getElementById('mid-img');
+ var imgDiv=document.getElementById('img-div');
+ var catalogeResults=document.getElementById('cataloge results');
 
 
-if (leftIndex===rightIndex) {
-    rightImage.src= BusMall.prototype.images[rightIndex].imgPath;
-    leftImage.src=BusMall.prototype.images[leftIndex].imgpath;  
-    midImage.src=BusMall.prototype.images[midIndex].imgPath; 
-}else if (leftIndex===midIndex) {
-    rightImage.src= BusMall.prototype.images[rightIndex].imgPath;
-    leftImage.src=BusMall.prototype.images[leftIndex].imgpath;  
-    midImage.src=BusMall.prototype.images[midIndex].imgPath; 
-}else if (rightIndex===midIndex) {
-    rightImage.src= BusMall.prototype.images[rightIndex].imgPath;
-    leftImage.src=BusMall.prototype.images[leftIndex].imgpath;  
-    midImage.src=BusMall.prototype.images[midIndex].imgPath; }
+
+
+ 
+//-------------------------------------------------
+
+
+leftImage.addEventListener('click',userClick);
+rightImage.addEventListener('click',userClick);
+midImage.addEventListener('click',userClick);
+
+
+
+function userClick(event){
+    if (clickingCounter <= maxAttempts) {
+        if (event.target.id ==='left-img') {
+            BusMall.prototype.images[leftIndex].votes++;
+            clickingCounter++; 
+        }else if (event.target.id==='right-img') {
+            BusMall.prototype.images[rightIndex].votes++;
+            clickingCounter++;  
+        }else{
+            BusMall.prototype.images[midIndex].votes++;
+            clickingCounter++;
+        }
+            renderImages();
+            selectImages();
+    }else{
+       
+        var resultList;
+        for (let i = 0; i < BusMall.prototype.images.length; i++) {
+           resultList =document.createElement('li');
+           resultList.textContent=BusMall.prototype.images[i].name+'collect '+BusMall.prototype.images[i].votes+' votes'.votes+' and shown'+BusMall.prototype.images[i].timesShown+' times';
+           catalogeResults.appendChild(resultList);
+            
+        }
+        
+       leftImage.removeEventListener('click', userClick);
+       rightImage.removeEventListener('click', userClick);
+       midImage.removeEventListener('click', userClick);
+    }
+}
+
+var rightImage,midImage,leftImage;
+/*
+function renderImages(){
+    var imgDiv = document.getElementById('img-div');
+    leftImage=document.createElement('img');
+    leftImage.src=BusMall.prototype.images[leftIndex].imgPath
+    rightImage=document.createElement('img')
+   midImage=document.createElement('img')
+
+
+}*/
+
+
+
+
+
+
