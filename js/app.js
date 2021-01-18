@@ -72,15 +72,16 @@ function selectImages (){
         BusMall.prototype.images[midIndex].timesShown++;
 }selectImages();
 
-//-----------------
+//----------------- 
 var imgDiv=document.getElementById('img-div');
 leftImage.addEventListener('click',userClick);
 rightImage.addEventListener('click',userClick);
 midImage.addEventListener('click',userClick);
 
 
-var showButton=document.getElementById('cataloge results');
+var showButton=document.getElementById('show-results');
 showButton.addEventListener('click',showResults)
+
 
 var submitButton = document.getElementById('submit-form');
 submitButton.addEventListener('submit',submitter)
