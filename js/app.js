@@ -1,9 +1,11 @@
 'use strict';
-
+var batikh;
 BusMall.prototype.images = [];
 var names = [];
 var votesArray = [];
-
+var product= BusMall.prototype.images;
+var stringProduct = JSON.stringify(product);
+localStorage.setItem('product',stringProduct);
 //-------
 function BusMall(name, imgPath) {
     this.name = name;
@@ -111,6 +113,7 @@ function userClick(event) {
             votesArray.push(BusMall.prototype.images[i].votes);
         }
         }
+       
     }
 
 var resultList;
@@ -120,6 +123,9 @@ function showResults() {
         resultList.textContent = BusMall.prototype.images[i].name + ' collect ' + BusMall.prototype.images[i].votes + ' votes and shown ' + BusMall.prototype.images[i].timesShown + ' times, and the percentage for it =' + ((BusMall.prototype.images[i].votes / maxAttempts) * 100) + ' %';
         catalogeResults.appendChild(resultList);
     }
+   
+    
+    
     var ctx = document.getElementById('myChart').getContext('2d');
     var chart = new Chart(ctx, {
 
@@ -139,13 +145,27 @@ function showResults() {
         options: {}
     });
     console.log(chart);
+
+    
+
+var storageData= localStorage.getItem('product');
+if (storageData){
+    votesArray= storageData;
+ }
+batikh =JSON.parse(storageData);
+console.log(product);
+
 }
+
 
 
 function submitter(event) {
     event.preventDefault();
     console.log(event);
     maxAttempts = event.target.attempt.value;
+
+
+
 }
 
 
@@ -167,4 +187,6 @@ function imageRepaet(){
         rightIndex = randomIndex();
     } while (imageSelected.includes(rightIndex));
     rightShown = rightIndex;
+
+
 }
