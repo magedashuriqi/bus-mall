@@ -1,11 +1,10 @@
 'use strict';
-var batikh;
+
 BusMall.prototype.images = [];
 var names = [];
 var votesArray = [];
-var product= BusMall.prototype.images;
-var stringProduct = JSON.stringify(product);
-localStorage.setItem('product',stringProduct);
+var viewArray =[];
+
 //-------
 function BusMall(name, imgPath) {
     this.name = name;
@@ -62,7 +61,7 @@ var midImage = document.getElementById('mid-img');
 var catalogeResults = document.getElementById('cataloge results');
 //---------------------
 function selectImages() {
-    
+
     imageRepaet();
 
     leftImage.src = BusMall.prototype.images[leftIndex].imgPath;
@@ -73,8 +72,10 @@ function selectImages() {
 
     midImage.src = BusMall.prototype.images[midIndex].imgPath;
     BusMall.prototype.images[midIndex].timesShown++;
-} 
-   selectImages();
+
+   
+}
+selectImages();
 
 //----------------- 
 var imgDiv = document.getElementById('img-div');
@@ -92,6 +93,8 @@ submitButton.addEventListener('submit', submitter)
 
 
 function userClick(event) {
+
+
     if (clickingCounter < maxAttempts) {
         if (event.target.id === 'left-img') {
             BusMall.prototype.images[leftIndex].votes++;
@@ -103,7 +106,10 @@ function userClick(event) {
             BusMall.prototype.images[midIndex].votes++;
             clickingCounter++;
         }
+        
         selectImages();
+        
+
     } else {
 
         imgDiv.removeEventListener('click', userClick);
@@ -112,21 +118,29 @@ function userClick(event) {
         for (var i = 0; i < BusMall.prototype.images.length; i++) {
             votesArray.push(BusMall.prototype.images[i].votes);
         }
+        
+        for (var i = 0; i < BusMall.prototype.images.length; i++) {
+            viewArray.push(BusMall.prototype.images[i].timesShown);
         }
-       
     }
+    var product = BusMall.prototype.images;
+    var stringProduct = JSON.stringify(product);
+    localStorage.setItem('product', stringProduct);
+}
 
 var resultList;
 function showResults() {
+
     for (let i = 0; i < BusMall.prototype.images.length; i++) {
         resultList = document.createElement('li');
-        resultList.textContent = BusMall.prototype.images[i].name + ' collect ' + BusMall.prototype.images[i].votes + ' votes and shown ' + BusMall.prototype.images[i].timesShown + ' times, and the percentage for it =' + ((BusMall.prototype.images[i].votes / maxAttempts) * 100) + ' %';
+        //resultList.textContent = BusMall.prototype.images[i].name + ' collect ' + BusMall.prototype.images[i].votes + ' votes and shown ' + BusMall.prototype.images[i].timesShown + ' times, and the percentage for it =' + ((BusMall.prototype.images[i].votes / maxAttempts) * 100) + ' %';
         catalogeResults.appendChild(resultList);
     }
-   
-    
-    
+
+
+
     var ctx = document.getElementById('myChart').getContext('2d');
+
     var chart = new Chart(ctx, {
 
         type: 'bar',
@@ -134,27 +148,38 @@ function showResults() {
         data: {
             labels: names,
             datasets: [{
-                label: 'My First dataset',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                label: 'Bus-mall products votes',
+                backgroundColor: '',
+                fontcolor: 'rgb(44, 42, 42)',
+                borderColor: 'rgb(255, 250, 250)',
                 data: votesArray,
+                
+            },{
+            
+                label: 'Bus-mall products timesShown',
+                backgroundColor: 'white',
+                fontcolor: 'black',
+                borderColor: 'rgb(255, 255, 255)',
+                data: viewArray,
+                
             }]
+
         },
 
 
-        options: {}
+        options: {
+            
+        }
     });
     console.log(chart);
-
     
 
-var storageData= localStorage.getItem('product');
-if (storageData){
-    votesArray= storageData;
- }
-batikh =JSON.parse(storageData);
-console.log(product);
+}
 
+
+var itemsPrase = JSON.parse(localStorage.getItem('product'));
+if (itemsPrase) {
+    BusMall.prototype.images= itemsPrase;
 }
 
 
@@ -162,14 +187,15 @@ console.log(product);
 function submitter(event) {
     event.preventDefault();
     console.log(event);
+
     maxAttempts = event.target.attempt.value;
-
-
+    praseItems();
 
 }
 
 
-function imageRepaet(){
+
+function imageRepaet() {
     var imageSelected = [leftShown, midShown, rightShown];
     do {
         leftIndex = randomIndex();
