@@ -133,13 +133,14 @@ function showResults() {
 
     for (let i = 0; i < BusMall.prototype.images.length; i++) {
         resultList = document.createElement('li');
-        resultList.textContent = BusMall.prototype.images[i].name + ' collect ' + BusMall.prototype.images[i].votes + ' votes and shown ' + BusMall.prototype.images[i].timesShown + ' times, and the percentage for it =' + ((BusMall.prototype.images[i].votes / maxAttempts) * 100) + ' %';
+        //resultList.textContent = BusMall.prototype.images[i].name + ' collect ' + BusMall.prototype.images[i].votes + ' votes and shown ' + BusMall.prototype.images[i].timesShown + ' times, and the percentage for it =' + ((BusMall.prototype.images[i].votes / maxAttempts) * 100) + ' %';
         catalogeResults.appendChild(resultList);
     }
 
 
 
     var ctx = document.getElementById('myChart').getContext('2d');
+
     var chart = new Chart(ctx, {
 
         type: 'bar',
@@ -148,15 +149,17 @@ function showResults() {
             labels: names,
             datasets: [{
                 label: 'Bus-mall products votes',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: '',
+                fontcolor: 'rgb(44, 42, 42)',
+                borderColor: 'rgb(255, 250, 250)',
                 data: votesArray,
                 
             },{
             
                 label: 'Bus-mall products timesShown',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'white',
+                fontcolor: 'black',
+                borderColor: 'rgb(255, 255, 255)',
                 data: viewArray,
                 
             }]
@@ -164,7 +167,9 @@ function showResults() {
         },
 
 
-        options: {}
+        options: {
+            
+        }
     });
     console.log(chart);
     
