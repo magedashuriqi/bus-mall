@@ -189,7 +189,7 @@ function submitter(event) {
     console.log(event);
 
     maxAttempts = event.target.attempt.value;
-    praseItems();
+   
 
 }
 
