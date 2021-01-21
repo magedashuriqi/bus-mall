@@ -2,7 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Bowlby+One&display=swap');
 
 html{
-    height:300%;
+    height:320%;
+    
 }
 body{
     position: relative;
@@ -112,14 +113,14 @@ img{
 
 #show-results{
     position: absolute;
-    left:560px;
-    bottom: 630px;
+    left:-570px;
+    bottom: 440px;
     background-color: rgb(100, 125, 165);
     color:rgb(218, 235, 230);
     font-family: 'Rancho', cursive;
     font-size: 24px;
     border: 0.002px solid rgb(218, 235, 230);
-    border-radius: 15px;
+    border-radius: 100%;
     box-shadow: 5px 5px 5px rgb(90, 86, 86);
     text-shadow:none;
     padding: 20px;
@@ -133,13 +134,19 @@ img{
 canvas{
     position: absolute !important;
     bottom: 150px !important;
-    left:190px!important;
-    width:800px !important;
-    height:400px !important;
+    left:10px!important;
+    width:600px !important;
+    height:300px !important;
    font-size: larger !important;
   
 }
 
+#cataloge-results{
+    position: absolute;
+    bottom: 150px;
+    right: 60px;
+    display: inline-block;
+}
 
 
 footer{

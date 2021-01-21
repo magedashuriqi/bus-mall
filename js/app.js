@@ -58,7 +58,7 @@ var clickingCounter = 0;
 var leftImage = document.getElementById('left-img');
 var rightImage = document.getElementById('right-img');
 var midImage = document.getElementById('mid-img');
-var catalogeResults = document.getElementById('cataloge results');
+var catalogeResults = document.getElementById('cataloge-results');
 //---------------------
 function selectImages() {
 
@@ -133,7 +133,8 @@ function showResults() {
 
     for (let i = 0; i < BusMall.prototype.images.length; i++) {
         resultList = document.createElement('li');
-        //resultList.textContent = BusMall.prototype.images[i].name + ' collect ' + BusMall.prototype.images[i].votes + ' votes and shown ' + BusMall.prototype.images[i].timesShown + ' times, and the percentage for it =' + ((BusMall.prototype.images[i].votes / maxAttempts) * 100) + ' %';
+        resultList.setAttribute('id','r-list');
+        resultList.textContent = BusMall.prototype.images[i].name + ' collect: ' + BusMall.prototype.images[i].votes + ' votes '+'and shown ' + BusMall.prototype.images[i].timesShown + ' times, and the percentage for it =' + ((BusMall.prototype.images[i].votes / maxAttempts) * 100) + ' %';
         catalogeResults.appendChild(resultList);
     }
 
@@ -189,7 +190,6 @@ function submitter(event) {
     console.log(event);
 
     maxAttempts = event.target.attempt.value;
-    praseItems();
 
 }
 
