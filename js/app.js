@@ -1,11 +1,12 @@
 'use strict';
-
+//global arrays
 BusMall.prototype.images = [];
 var names = [];
 var votesArray = [];
 var viewArray =[];
 
 //-------
+//Creating the constructer
 function BusMall(name, imgPath) {
     this.name = name;
     this.imgPath = imgPath;
@@ -18,6 +19,7 @@ function BusMall(name, imgPath) {
 
 }
 //-----------
+//Adding new objects
 new BusMall('Bag', 'img/bag.jpg');
 new BusMall('Banana', 'img/banana.jpg');
 new BusMall('bathroom', 'img/bathroom.jpg');
@@ -40,11 +42,13 @@ new BusMall('water-can', 'img/water-can.jpg');
 new BusMall('wine-glass', 'img/wine-glass.jpg');
 
 //--------------
+// create function to generate random number
 function randomIndex() {
     return Math.floor(Math.random() * (BusMall.prototype.images.length));
 
 }
 //----------------
+// Global variables
 var leftIndex;
 var rightIndex;
 var midIndex;
@@ -60,6 +64,7 @@ var rightImage = document.getElementById('right-img');
 var midImage = document.getElementById('mid-img');
 var catalogeResults = document.getElementById('cataloge-results');
 //---------------------
+// create function to display 3 different images 
 function selectImages() {
 
     imageRepaet();
@@ -78,6 +83,7 @@ function selectImages() {
 selectImages();
 
 //----------------- 
+// Add events for the function
 var imgDiv = document.getElementById('img-div');
 leftImage.addEventListener('click', userClick);
 rightImage.addEventListener('click', userClick);
@@ -90,8 +96,8 @@ showButton.addEventListener('click', showResults)
 
 var submitButton = document.getElementById('submit-form');
 submitButton.addEventListener('submit', submitter)
-
-
+//-----------------------------
+// create function to count votes and clicks
 function userClick(event) {
 
 
@@ -123,11 +129,13 @@ function userClick(event) {
             viewArray.push(BusMall.prototype.images[i].timesShown);
         }
     }
+    //set the values in local storage
     var product = BusMall.prototype.images;
     var stringProduct = JSON.stringify(product);
     localStorage.setItem('product', stringProduct);
 }
-
+//------------------------------
+// create function to show the result of voting
 var resultList;
 function showResults() {
 
@@ -139,7 +147,7 @@ function showResults() {
     }
 
 
-
+// create a chart from chart.js library
     var ctx = document.getElementById('myChart').getContext('2d');
 
     var chart = new Chart(ctx, {
@@ -177,14 +185,14 @@ function showResults() {
 
 }
 
-
+// get item from local storage
 var itemsPrase = JSON.parse(localStorage.getItem('product'));
 if (itemsPrase) {
     BusMall.prototype.images= itemsPrase;
 }
 
 
-
+// create a function to submit the values that user insert it
 function submitter(event) {
     event.preventDefault();
     console.log(event);
@@ -194,7 +202,7 @@ function submitter(event) {
 }
 
 
-
+// create function to prevent repete images
 function imageRepaet() {
     var imageSelected = [leftShown, midShown, rightShown];
     do {
